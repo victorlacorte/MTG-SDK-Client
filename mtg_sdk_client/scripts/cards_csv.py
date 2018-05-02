@@ -26,7 +26,7 @@ if __name__ == '__main__':
         'toughness',
         'rulings',
         'text',
-        'variations',
+        'variations']
         #'original_type',
         #'artist',
         #'border',
