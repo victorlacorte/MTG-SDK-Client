@@ -2,7 +2,7 @@ import csv
 
 import mtgsdk
 
-if __name__ == '__main__':
+def main():
     all_sets = mtgsdk.Set.all()
     fields = [
         'code',

@@ -4,7 +4,7 @@ import re
 import mtgsdk
 
 
-if __name__ == '__main__':
+def main():
     fields = [
         'id',
         'multiverse_id',
@@ -46,10 +46,7 @@ if __name__ == '__main__':
         #'timeshifted',
         #'watermark']
 
-    sets = [
-        'dom',
-        'rix',
-        'xln']
+    sets = ['akh']
 
     restval = 'NA'
     extrasaction = 'ignore'
