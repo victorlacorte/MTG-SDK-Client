@@ -29,4 +29,4 @@ if __name__ == '__main__':
                     dialect=dialect)
         writer.writeheader()
         for s in all_sets:
-            writer.writerow({k: getattr(s, k) for k in fields})
+            writer.writerow({k: getattr(s, k, None) for k in fields})
