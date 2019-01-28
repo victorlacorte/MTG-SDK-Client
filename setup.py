@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     dependency_links=[
-        'https://github.com/victorlacorte/MTG-SDK-Client@dev#egg=mtg_sdk_client',
+        'https://github.com/victorlacorte/MTG-SDK-Client@dev#egg=src',
     ],
     install_requires=[
         'mtgsdk>=1.3.1',
