@@ -1,0 +1,4 @@
+* Cards with "transform" on their text are counting twice for their rarities or
+  set; something to keep in mind
+
+* Why does Adanto, the First Fort have a CMC of 1?
