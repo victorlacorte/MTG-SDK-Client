@@ -6,26 +6,26 @@ import mtgsdk
 
 if __name__ == '__main__':
     fields = [
+        'cmc',
+        'color_identity',
+        'colors',
         'id',
-        'multiverse_id',
-        'number',
-        'name',
         'image_url',
+        'loyalty',
+        'mana_cost',
+        'multiverse_id',
+        'name',
+        'number',
+        'power',
+        'rarity',
+        'rulings',
         'set',
         'set_name',
-        'rarity',
-        'cmc',
-        'mana_cost',
-        'colors',
-        'color_identity',
-        'type',
-        'supertypes',
         'subtypes',
-        'loyalty',
-        'power',
-        'toughness',
-        'rulings',
+        'supertypes',
         'text',
+        'toughness',
+        'type',
         'variations']
         #'original_type',
         #'artist',
@@ -46,14 +46,12 @@ if __name__ == '__main__':
         #'timeshifted',
         #'watermark']
 
-    sets = [
-        'dom',
-        'rix',
-        'xln']
+    #sets = ('m19,')
 
     restval = 'NA'
     extrasaction = 'ignore'
     dialect = 'unix'
+
     with open('cards.csv', 'w') as f:
         writer = csv.DictWriter(f,
                     fieldnames=fields,
@@ -61,19 +59,18 @@ if __name__ == '__main__':
                     extrasaction=extrasaction,
                     dialect=dialect)
         writer.writeheader()
-        for s in sets:
-            for card in mtgsdk.Card \
-                            .where(language='English') \
-                            .where(set=s) \
-                            .all():
-                d = {}
-                for k in fields:
-                    v = getattr(card, k, None)
-                    if v:
-                        if isinstance(v, str):
-                            d[k] = re.sub('\n', ' ', v)
-                        else:
-                            d[k] = v
+        #for s in sets:
+        m19 = mtgsdk.Card.where(set='m19').all()
+        for card in m19:
+            d = {}
+            for k in fields:
+                v = getattr(card, k, None)
+                if v:
+                    if isinstance(v, str):
+                        d[k] = re.sub('\n', ' ', v)
                     else:
-                        d[k] = None
-                writer.writerow(d)
+                        # Numbers, etc?
+                        d[k] = v
+                else:
+                    d[k] = None
+            writer.writerow(d)
