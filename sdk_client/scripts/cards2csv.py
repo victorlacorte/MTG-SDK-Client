@@ -2,7 +2,7 @@ import csv
 import json
 import sys
 
-from mtg_sdk_client import card_utils
+from sdk_client import card_utils
 
 
 def main():

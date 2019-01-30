@@ -1,9 +1,9 @@
 import json
-
 import mtgsdk as mtg
 import pytest
 
-from mtg_sdk_client import card_utils
+from sdk_client import card_utils
+
 
 @pytest.fixture
 def card():

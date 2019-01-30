@@ -3,17 +3,17 @@ from setuptools import setup, find_packages
 
 setup(
     dependency_links=[
-        'https://github.com/victorlacorte/MTG-SDK-Client@dev#egg=mtg_sdk_client',
+        'https://github.com/victorlacorte/MTG-SDK-Client/tree/master#egg=sdk_client',
     ],
     install_requires=[
         'mtgsdk>=1.3.1',
     ],
-    name='mtg_sdk_client',
+    name='sdk_client',
     packages=find_packages(),
     setup_requires=[
         'pytest-runner',
     ],
-    version='0.0',
+    version='0.1',
     tests_require=[
         'pytest',
     ],

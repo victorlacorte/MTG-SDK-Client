@@ -1,7 +1,7 @@
 import csv
 import json
 
-from mtg_sdk_client import card_utils
+from sdk_client import card_utils
 
 
 sets = ['m19', 'dom', 'rix', 'xln']
