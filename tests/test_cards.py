@@ -3,7 +3,10 @@ import mtgsdk as mtg
 import pytest
 
 from sdk_client import card_utils
+from sdk_client.scripts.cards_csv import get_fieldnames
 
+
+json_data = lambda s: f'data/{s}.json'
 
 @pytest.fixture
 def card():
@@ -18,13 +21,13 @@ def card():
     # return card[0]
     raise DeprecationWarning()
 
-@pytest.fixture
+@pytest.fixture(scope='module')
 def m19_cards():
-    with open('tests/data/m19.json', 'r') as f:
+    with open(json_data('m19'), 'r') as f:
         return json.load(f)
 
-@pytest.fixture
-def first_card(m19_cards):
+@pytest.fixture(scope='module')
+def m19_card(m19_cards):
     return m19_cards[0]
 
 @pytest.mark.skip
@@ -49,8 +52,8 @@ def test_extract_cards():
     print(len(cards))
     assert False
 
-def test_first_card(first_card):
-    c = card_utils.Card(first_card)
+def test_m19_card(m19_card):
+    c = card_utils.Card(m19_card)
     assert c.foreign_name('Portuguese (Brazil)') == 'Égide dos Céus'
     assert c.color() == 'white'
 

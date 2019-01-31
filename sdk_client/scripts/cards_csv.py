@@ -1,76 +1,47 @@
 import csv
 import re
 
-import mtgsdk
+from mtgsdk import Card
 
 
-if __name__ == '__main__':
-    fields = [
-        'cmc',
-        'color_identity',
-        'colors',
-        'id',
-        'image_url',
-        'loyalty',
-        'mana_cost',
-        'multiverse_id',
-        'name',
-        'number',
-        'power',
-        'rarity',
-        'rulings',
-        'set',
-        'set_name',
-        'subtypes',
-        'supertypes',
-        'text',
-        'toughness',
-        'type',
-        'variations']
-        #'original_type',
-        #'artist',
-        #'border',
-        #'flavor',
-        #'foreign_names',
-        #'hand',
-        #'layout',
-        #'legalities',
-        #'life',
-        #'names',
-        #'original_text',
-        #'printings',
-        #'release_date',
-        #'reserved',
-        #'source',
-        #'starter',
-        #'timeshifted',
-        #'watermark']
+LANGUAGE = 'English'
+SET = 'rna'
+RESTVAL = 'NA'
+EXTRASACTION = 'raise'
+DIALECT = 'unix'
 
-    #sets = ('m19,')
+def get_fieldnames(o):
+    for k, v in o.__dict__.items():
+        yield k
 
-    restval = 'NA'
-    extrasaction = 'ignore'
-    dialect = 'unix'
+def main():
+    # Example: simply utilized to query "fieldnames"
+    fieldnames = get_fieldnames(Card
+            .where(set=SET)
+            .where(page=1)
+            .where(pageSize=1)
+            .all()[0])
 
-    with open('cards.csv', 'w') as f:
+    with open(f'data/{SET}.json', 'w') as f:
         writer = csv.DictWriter(f,
-                    fieldnames=fields,
-                    restval=restval,
-                    extrasaction=extrasaction,
-                    dialect=dialect)
+                    fieldnames=list(fieldnames),
+                    restval=RESTVAL,
+                    extrasaction=EXTRASACTION,
+                    dialect=DIALECT)
         writer.writeheader()
-        #for s in sets:
-        m19 = mtgsdk.Card.where(set='m19').all()
-        for card in m19:
-            d = {}
-            for k in fields:
-                v = getattr(card, k, None)
-                if v:
-                    if isinstance(v, str):
-                        d[k] = re.sub('\n', ' ', v)
-                    else:
-                        # Numbers, etc?
-                        d[k] = v
-                else:
-                    d[k] = None
-            writer.writerow(d)
+
+        for c in Card \
+                    .where(language=LANGUAGE) \
+                    .where(set=SET) \
+                    .all():
+            # d = {}
+            # for k in fields:
+            #     v = getattr(card, k, None)
+            #     if v:
+            #         if isinstance(v, str):
+            #             d[k] = re.sub('\n', ' ', v)
+            #         else:
+            #             d[k] = v
+            #     else:
+            #         d[k] = None
+            writer.writerow(dict(c.__dict__.items()))

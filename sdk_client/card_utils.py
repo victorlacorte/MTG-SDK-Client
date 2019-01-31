@@ -16,8 +16,8 @@ class Card(UserDict):
 
     def foreign_name(self, lang, *, imageUrl=False, multiverseid=False):
         '''
-        foreign_names is a list of languages (dicts) and each have the
-        following keys:
+        foreign_names is a list of languages (dicts) and each has the following
+        keys:
 
         * imageUrl
         * language
